@@ -259,3 +259,146 @@ https://inventory-management.adaptable.app
     >> Menjawab beberapa pertanyaan berikut pada README.md pada root folder.
     
         - Menjawab pertanyaan dan menjelaskan implementasi checklist pada file README.md
+
+# Tugas 4
+# Jawaban Pertanyaan
+1. **Django UserCreationForm, kelebihan dan kekurangannya**
+    >> Django UserCreationForm
+    Django UserCreation Form digunakan untuk membuat user baru di dalam sebuah web applications. Django UserCreationForm terdiri atas 3 field yaitu username, password 1, dan password 2 (password 1 dan password 2 digunakan untuk melakukan verifikasi password)
+
+    >> Kelebihan UserCreationForm
+        - Mudah digunakan
+        
+        - Menyediakan validasi untuk memastikan bahwa input pengguna valid
+
+        - Dapat menyesuaikan tampilan form
+
+        - Dapat mengirimkan pesan kesalahan
+
+    >> Kekurangan UserCreationForm
+        - Tidak mendukung adanya fitur lanjutan seperti two factor authentication
+
+        - Ada keterbatasan dalam validasi yang bersifat kostumisasi
+
+        - Desain UI/UX yang kurang menarik
+2. **Perbedaan antara autentikasi & otorisasi dan alasan keduanya penting**
+    >> Autentikasi
+    Autentikasi adalah proses melakukan verifikasi identitas pengguna dan memastikan bahwa pengguna yang mengakses adalah orang yang sebenarnya dan sudah melakukan registrasi sebelumnya. Contoh dari proses autentikasi adalah memastikan bahwa username dan password yang dimasukkan sesuai dengan username dan password yang telah didaftarkan sebelumnya
+
+    >> Otorisasi
+    Otorisasasi adalah proses untuk memberikan akses dan memutuskan apa saja fitur-fitur atau halaman yang dapat diakses oleh pengguna yang sebelumnya sudah diautentikasi. Contoh dari proses otorisasi adalah apabila user sudah melakukan login maka ia dapat melihat landing page dari suatu website
+
+    >> Alasan keduanya penting
+    - Autentikasi penting untuk melindungi data dari pengguna dari akses yang tidak sah
+    - Otorisasi penting untuk mengontrol akses ke beberapa bagian atau fitur yang ada dalam sebuah aplikasi
+3. **Pengertian Cookies dan pengimplementasiannya di Django untuk mengelola data sesi pengguna**
+    >> Pengertian Cookies
+    Cookies adalah bagian yang digunakan untuk melakukan rekam jejak dan aktivitas pengguna ketika melakukan penelusuran di dalam sebuah website. Cookies adalah file yang disimpan di dalam komputer pengguna. Cookie memungkinkan website untuk dapat mengetahui yang telah dilakukan pengguna dan waktunya.
+
+    >> Pengimplementasian di Django untuk mengelola data sesi pengguna
+    - Mengidentifikasi pengguna saat pertama kali mengunjungi situs web tertentu
+
+    - Menyimpan data session pengguna dan detail seperti waktu
+
+    - Melacak aktivitas pengguna
+
+4. **Apakah cookies aman secara default atau ada risiko potensial yang harus diwaspadai?**
+    Cookies tidak sepenuhnya aman secara default karena akan ada beberapa risiko potensial yang perlu diwaaspadai seperti pencurian data atau informasi, penyadapan data, pemalsuan cookie, dan Cookies Cross-Site Scripting (XSS). Beberapa cara untuk mengurangi risiko potensial dari cookie adalah sebagai berikut:
+    - Melakukan enkripsi untuk mengakses data-data yang sifatnya sensitif
+
+    - Mengakses web menggunakan format HTTPS
+
+    - Simpan hanya informasi yang benar-benar diperlukan dalam cookie
+    
+5. **Implementasi checklist**
+    >> Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna untuk mengakses aplikasi sebelumnya dengan lancar
+        
+        > Fungsi registrasi
+
+            - Membuka fungsi views.py yang ada pada subdirektori main
+
+            - Melakukan import redirect, UserCreationForm, messages
+
+            - Membuat fungsi dengan nama register_account yang menerima parameter berupa request
+
+            - Apabila request menggunakan POST, maka akan membuat UserCreationForm baru dengan memasukkan QueryDict sesuai dengan input user
+
+            - Kemudian, akan dilakukan validasi isi input dari form tersebut. Apabila isi input valid, maka form akan disimpan kemudian akan menampilkan message bahwa user telah berhasil melakukan registrasi
+
+            - Akan dilakukan redirect setelah form berhasil disimpan
+
+            - Apabila request selain POST, maka akan membuat UserCreationForm juga namun tidak menggunakan request POST di parameternya
+
+        > Fungsi login
+
+            - Membuka fungsi views.py yang ada pada subdirektori main
+
+            - Melakukan import autenthicate dan login
+
+            - Membuat fungsi dengan nama login_user yang menerima parameter berupa request
+
+            - Mengambil input pada field username dan password kemudian mengassign sebagai variabel username dan password
+
+            - Melakukan autentikasi apakah input yang dimasukkan sesuai dengan username dan password yang terdaftar
+
+            - Apabila proses autentikasi berhasil maka user telah berhasil login
+
+            - Apabila proses autentikasi gagal maka akan menampilkan message gagal login
+
+        > Fungsi logout
+
+            - Membuka fungsi views.py yang ada pada subdirektori main
+
+            - Melakukan import autenthicate dan login
+
+            - Membuat fungsi dengan nama login_user yang menerima parameter berupa request
+
+            - Menghapus sesi user yang telah masuk dengan logout(request)
+
+            - Setelah berhasil logout, user akan diarahkan ke halaman login
+
+    >> Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal
+        
+        - Membuat akun pengguna dengan username hello@ui yang terdiri atas 3 data item, yaitu pulpen, AC, dan kursi. Masing-masing dari item tersebut memiliki field name, description, category, date added, dan amount
+
+        - Membuat akun pengguna dengan username miaw@ui yang terdiri atas 3 data item, yaitu pensil, lampu, dan meja. Masing-masing dari item tersebut memiliki field name, description, category, date added, dan amount
+                
+    >> Menghubungkan model Item dengan User
+
+        - Membuka models.py pada subdirektori main
+
+        - Melakukan import User
+        
+        - Menambahkan user = models.ForeignKey(User, on_delete=models.CASCADE) pada model Item yang sudah dibuat sebelumnya
+
+        - Membuka views.py pada subdirektori main
+
+        - Mengubah fungsi create_new_product dengan menambahkan commit=False untuk dilakukan proses otorisasai sehingga data yang disimpan pada database sudah sesuai dan spesifik untuk user tertentu
+
+    >> Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi
+
+        - Membuka views.py pada subdirektori main
+
+        - Melakukan import datetime, HttpResponseRedirect, dan reverse
+
+        - Melakukan modifikasi pada fungsi login_user dengan mengganti kode pada block if User is Not None menjadi
+            if user is not None:
+                login(request, user)
+                response = HttpResponseRedirect(reverse("main:show_main"))
+                response.set_cookie('last_login', str(datetime.datetime.now())) --> untuk membuat cookie last_login yang akan menampilkan last login beserta waktunya dan menambahkan ke dalam response
+                return response
+
+        - Mengubah fungsi show_main dengan menambahkan 'last_login': request.COOKIES['last_login'] untuk menambahkan informasi cookie last_login
+
+        - Menambahkan fungsi logout_user dengan response.delete_cookie('last_login') untuk menghapus cookie apabila user telah melakukan logout
+
+        - Membuka berkas.html pada subdirektori main
+
+        - Menambahkan <h5>Last login session: {{ last_login }}</h5> untuk menampilkan data last_login
+        
+    >> Menjawab beberapa pertanyaan berikut pada README.md pada root folder
+
+        - Menjawab pertanyaan dan menjelaskan implementasi checklist pada file README.md
+
+
+
