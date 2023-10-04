@@ -13,6 +13,7 @@ from main.forms import ProductForm
 from main.models import Item
 
 
+
 # Restrict access to the main page only for logged in users
 @login_required(login_url='/login')
 # Create your views here.

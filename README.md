@@ -400,5 +400,69 @@ https://inventory-management.adaptable.app
 
         - Menjawab pertanyaan dan menjelaskan implementasi checklist pada file README.md
 
+# Tugas 5
+# Jawaban Pertanyaan
+1. **Manfaat element selector CSS dan waktu yang tepat untuk menggunakannya**
+    >> Element selector
+        Manfaat dari element selector adalah ketika ingin menargetkan semua elemen dengan jenis yang sama di halaman web. Manfaatnya adalah memungkinkan  untuk menerapkan design umum pada semua elemen tersebut. Contohnya adalah menggunakan element selector untuk mengubah gaya semua elemen <p> (paragraf) di halaman web. Penggunaan element selector cocok ketika ingin menerapkan design atau gaya yang sama pada banyak elemen.
+    
+    >> Class selector
+        Manfaat dari class selector adalah memungkinkan untuk melakukan pengelompokkan elemen-elemen dengan karakteristik yang sama dan memberikan design atau gaya yang sama. Selain itu, class selector memungkinkan untuk menggunakan gaya yang sama pada beberapa elemen dalam halaman yang berbeda. Ini membuat kode CSS lebih efisien dan memudahkan dalam melakukan maintenance. Contohnya adalah class selector untuk memberi gaya khusus kepada elemen-elemen dengan kelas "button" sehingga tombol tersebut memiliki tampilan tombol yang seragam. Penggunaan class selector cocok ketika ingin menggunakan selector yang sama lebih dari satu kali di dalam suatu halaman.
+
+    >> ID Selector
+        Manfaat utama ID selector adalah kemampuannya untuk mengidentifikasi elemen secara unik di halaman web. Ini berguna jika ingin memberikan gaya atau interaksi yang sangat khusus pada satu elemen tertentu. Elemen yang diidentifikasi oleh ID selector memiliki prioritas yang lebih tinggi daripada selector lainnya. ID selector cocok digunakan untuk mengidentifikasi elemen secara unik dan memberikan gaya atau perilaku khusus pada elemen tersebut.
+
+2. **Jelaskan HTML5 Tag yang kamu ketahui**
+    >> <header>
+        Digunakan untuk menunjukkan bagian atas dari sebuah elemen konten atau halaman. Biasanya berisi judul, logo, atau elemen navigasi.
+
+    >> <body>
+        Elemen utama yang berisi semua konten yang akan ditampilkan di halaman web, termasuk teks, gambar, tautan, dan elemen-elemen lainnya.
+
+    >> <button>
+        Membuat tombol yang dapat diklik oleh pengguna. Digunakan untuk memicu tindakan atau peristiwa tertentu saat diklik.
+
+    >> <div>
+        Elemen yang sering digunakan untuk mengelompokkan dan mengatur konten. Ini adalah elemen blok yang memungkinkan untuk menggabungkan sejumlah elemen dalam satu grup.
+
+    >> <meta>
+        Digunakan untuk menyisipkan metadata ke dalam dokumen HTML. Metadata ini bisa berisi informasi tentang karakter encoding, deskripsi halaman, kata kunci, dan lain-lain. Biasanya diletakkan dalam bagian <head> dari halaman.
+
+    >> <table>
+        Digunakan untuk membuat tabel dalam HTML. Tabel ini terdiri atas baris (<tr>), sel (<td> untuk sel data, <th> untuk sel kepala), dan kolom.
+
+3. **Jelaskan perbedaan antara margin dan padding**
+    Margin digunakan untuk mengatur jarak antara elemen-elemen dan memengaruhi hubungan antara elemen-elemen tersebut dalam tata letak halaman, sementara padding digunakan untuk mengontrol ruang di dalam elemen dan memengaruhi tampilan dan jarak antara konten elemen dan batasnya.
+
+4. **Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?**
+    >> CSS Tailwind
+        Tailwind CSS menggunakan kerangka kerja CSS "utility first" yang berarti tailwind memberikan sejumlah utilitas kerja yang dapat digunakan untuk membangun suatu tampilan. Tailwind juga memiliki tingkat kostumisasi ynag sangat tinggi. Tailwind memungkinkan adanya penyesuaian setiap aspek tampilan dengan melakukan edit konfigurasi atau menambahkan kelas khusus. Tailwind biasanya menghasilkan file yang lebih besar karena mencakup semua kelas utilitas yang disediakan. Tailwind memungkinkan adanya kendali terhadap setiap elemen tampilan dan styling yang digunakan saat menentukan styling langsung di markup HTML
+
+    >> CSS Bootstrap
+        Bootstrap memiliki pendekatan "component-based" dimana dapat menggunakan beberapa komponen yang telah ada dengan gaya bawaan. Komponen-komponen tersebut dapat digabungkan dalam markup HTML yang telah dibuat. Bootstrap memiliki tema bawaan yang dapat disesuaikan, tetapi seringkali perubahan mendalam memerlukan penyesuaian CSS tambahan. Bootstrap memiliki opsi untuk menyesuaikan komponen yang ingin digunakan, sehingga dapat mengendalikan ukuran file CSS. Bootstrap menyediakan banyak komponen yang siap pakai, yang memudahkan untuk membangun tampilan tanpa perlu menulis banyak kode CSS tambahan.
+
+    >> Kapan menggunakan CSS Tailwind & CSS Bootstrap
+        Tailwind cocok digunakan ketika ingin tingkat kustomisasi yang tinggi dan kontrol yang lebih atas styling elemen. Sedangkan bootstrap cocok untuk digunakan ketika ingin cepat membangun tampilan dengan komponen-komponen yang siap untuk digunakan.
+
+5. **Implementasi checklist**
+    >> Kustomisasi halaman login, register, dan tambah inventori semenarik mungkin
+        - Tampilan login
+
+            Untuk tampilan login saya membingkai beberapa konten dengan menggunakan container. Kemudian saya menggunakan kelas d-flex, justify-content-center, dan align-items-center yang semuanya merupakan kelas Bootstrap untuk memusatkan konten login secara vertikal dan horisontal dalam container. Selain itu, saya juga menggunakan file login_register.css diluar file login untuk menambahkan beberapa styling diluar dari styling default dari Bootstrap
+
+        - Tampilan register
+
+            Untuk tampilan register saya melakukan hal yang serupa dengan yang dilakukan pada tampilan login yaitu dengan membingkai beberapa konten dengan menggunakan container. Kemudian saya menggunakan kelas d-flex, justify-content-center, dan align-items-center yang semuanya merupakan kelas Bootstrap untuk memusatkan konten login secara vertikal dan horisontal dalam container. Selain itu, saya juga menggunakan file login_regsiter.css diluar file login untuk menambahkan beberapa styling diluar dari styling default dari Bootstrap
+
+        - Tampilan tambah inventori
+
+            Untuk tampilan tambah inventori saya membingkai beberapa konten dengan menggunakan container. Kemudian saya menggunakan card untuk menyimpan beberapa konten yang berupa form, seperti name, amount, description, dan category. Selain itu, saya juga menggunakan file create_new_product.css diluar file create_new_product.html untuk menambahkan beberapa styling diluar dari styling default dari Bootstrap.
+
+    >> Kustomisasi halaman daftar inventori menjadi lebih berwarna maupun menggunakan apporach lain seperti menggunakan Card.
+
+        - Tampilan halaman daftar inventori
+            
+            Untuk tampilan daftar inventori saya menampilkan daftar produk yang dalam format grid. Kemudian dari setiap produk tersebut saya tampilkan dalam bentuk card dengan menambahkan beberapa styling. Selain itu, saya juga menggunakan file inventory_main.css diluar file invetory_main.html untuk menambahkan beberapa styling diluar dari styling default dari Bootstrap.
+
 
 

@@ -1,0 +1,96 @@
+@import "bootstrap/scss/bootstrap";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+   font-family: 'Poppins', sans-serif;
+}
+
+body,
+html {
+   margin: 0;
+   padding: 0;
+   height: 100%;
+   background: linear-gradient(#e66465, #9198e5);
+}
+
+
+.container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   background-color: transparent;
+}
+
+.login {
+   width: 400px;
+   padding: 20px;
+   border-radius: 5px;
+   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+   border-radius: 25px;
+   border: 0;
+   background-color: rgba(255, 255, 255, 0.4);
+   backdrop-filter: blur(5px);
+   border: 1px solid rgba(255, 255, 255, 0.2);
+   font-family: "Ubuntu", sans-serif;
+   font-size: 20px;
+   color: rgb(14, 14, 14);
+}
+
+.register-now-text {
+   font-size: 15px;
+   color: rgb(14, 14, 14);
+   text-align: center;
+   margin-top: 10px;
+}
+
+.login h1 {
+   margin-top: 0;
+   text-align: center;
+   font-size: 30px;
+   color: black;
+
+}
+
+
+.login form {
+   display: flex;
+   flex-direction: column;
+   border-radius: 20px;
+}
+
+
+.login label {
+   margin-bottom: 5px;
+}
+
+
+input[type="text"],
+input[type="password"] {
+   padding: 10px;
+   margin-bottom: 15px;
+   border: 1px solid #ccc;
+   border-radius: 20px;
+}
+
+.bold-text {
+   font-weight: bold;
+}
+
+.btn.login_btn {
+   display: flex;
+   background-color: #0066cc;
+   color: #fff;
+   border: none;
+   padding: 10px 20px;
+   border-radius: 3px;
+   text-align: center;
+   cursor: pointer;
+
+}
+
+.btn.login_btn:hover {
+   background-color: #0056b3;
+
+}
