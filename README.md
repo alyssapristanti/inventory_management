@@ -413,22 +413,22 @@ https://inventory-management.adaptable.app
         Manfaat utama ID selector adalah kemampuannya untuk mengidentifikasi elemen secara unik di halaman web. Ini berguna jika ingin memberikan gaya atau interaksi yang sangat khusus pada satu elemen tertentu. Elemen yang diidentifikasi oleh ID selector memiliki prioritas yang lebih tinggi daripada selector lainnya. ID selector cocok digunakan untuk mengidentifikasi elemen secara unik dan memberikan gaya atau perilaku khusus pada elemen tersebut.
 
 2. **Jelaskan HTML5 Tag yang kamu ketahui**
-    >> <header>
+    >> <'header'>
         Digunakan untuk menunjukkan bagian atas dari sebuah elemen konten atau halaman. Biasanya berisi judul, logo, atau elemen navigasi.
 
-    >> <body>
+    >> <'body'>
         Elemen utama yang berisi semua konten yang akan ditampilkan di halaman web, termasuk teks, gambar, tautan, dan elemen-elemen lainnya.
 
-    >> <button>
+    >> <'button'>
         Membuat tombol yang dapat diklik oleh pengguna. Digunakan untuk memicu tindakan atau peristiwa tertentu saat diklik.
 
-    >> <div>
+    >> <'div'>
         Elemen yang sering digunakan untuk mengelompokkan dan mengatur konten. Ini adalah elemen blok yang memungkinkan untuk menggabungkan sejumlah elemen dalam satu grup.
 
-    >> <meta>
+    >> <'meta'>
         Digunakan untuk menyisipkan metadata ke dalam dokumen HTML. Metadata ini bisa berisi informasi tentang karakter encoding, deskripsi halaman, kata kunci, dan lain-lain. Biasanya diletakkan dalam bagian <head> dari halaman.
 
-    >> <table>
+    >> <'table'>
         Digunakan untuk membuat tabel dalam HTML. Tabel ini terdiri atas baris (<tr>), sel (<td> untuk sel data, <th> untuk sel kepala), dan kolom.
 
 3. **Jelaskan perbedaan antara margin dan padding**
