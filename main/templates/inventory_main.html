@@ -6,55 +6,115 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 {% endblock %}
 {% block content %}
-<body>
     <h1 class="text-center my-4 font-weight-bold">Welcome To {{application_name}}</h1>
 
-    <div class="container mb-4">
-        <a href="{% url 'main:create_new_product' %}">
-            <button class="btn btn-primary">
-                Add New Product
-            </button>
-        </a>
+    <div class="container mt-4">
+        <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add Product
+        </button>
+        <div class="row" id="product_cards"></div>
     </div>
     
-    <div class="container">
-        <div class="row">
-            {% for product in products %}
-                <div class="col-md-4 mb-4 card-product glass-card">
-                    <div class="card text-bg-light mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{product.name}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{product.category}}</h6>
-                            <p class="card-text">{{product.description}}</p>
-                            <p><strong>Date Added:</strong> {{product.date_added}}</p>
-                            <p><strong>Amount:</strong> {{product.amount}}</p>
-                        </div>
-                        <div class="card-footer" style="text-align: center;">
-                            <a href="{% url 'main:add_stock' product.id %}" class="btn btn-primary">Add Stock</a>
-                            <a href="{% url 'main:reduce_stock' product.id %}" class="btn btn-warning">Reduce Stock</a>
-                            <a href="{% url 'main:delete_product' product.id %}" class="btn btn-danger">Delete Item</a>
-                        </div>
-                    </div>
+    
+    
+        <div class="container my-4">
+            <div class = "list-of-items">
+                <h1>List of Items</h1>
+                <p class="font-weight-bold">You have {{ item_count }} item{{ item_count|pluralize:"s" }} in {{ application_name }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            {% endfor %}
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="col-form-label">Category:</label>
+                            <select class="form-control" id="category" name="category">
+                                {% for category in CATEGORY_CHOICES %}
+                                    <option value="{{ category.0 }}">{{ category.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="container my-4">
-        <div class = "list-of-items">
-            <h1>List of Items</h1>
-            <p class="font-weight-bold">You have {{ item_count }} item{{ item_count|pluralize:"s" }} in {{ application_name }}</p>
-        </div>
-    </div>
-
-    <hr class="mb-4" /> <!-- Add a horizontal line -->
-    <div class="container">
+    
+    <div class="container text-center py-5">
+        <hr class="mb-4" />
         <h5>Last login session: {{ last_login }}</h5>
         <a href="{% url 'main:logout' %}" class="btn btn-secondary mt-2">
             Logout
         </a>
     </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script>
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+    async function refreshProducts() {
+        document.getElementById("product_cards").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = ""
+        products.forEach((item) => {
+            htmlString += `
+            <div class="col-md-4 mb-4 card-product glass-card">
+                <div class="card text-bg-light mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.fields.name}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${item.fields.category}</h6>
+                        <p class="card-text">${item.fields.description}</p>
+                        <p><strong>Date Added:</strong>${item.fields.date_added}</p>
+                        <p><strong>Amount:</strong> ${item.fields.amount}</p>
+                        
+                        <a href="/add_stock/${item.pk}/" class="btn btn-primary btn-sm">Add Stock</a>
+                        <a href="/reduce_stock/${item.pk}/" class="btn btn-warning btn-sm">Reduce Stock</a>
+                        <a href="/delete_product/${item.pk}/" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete Item</a>
+                    </div>
+                </div>
+            </div>`
+        })
+        document.getElementById("product_cards").innerHTML = htmlString
+    }
+
+    refreshProducts()
+    async function addProduct() {
+        await fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        })
+        refreshProducts()
+
+        document.getElementById("form").reset()
+        return false
+    }
+    document.getElementById("button_add").onclick = addProduct
+</script>
+
 {% endblock content %}
 </html>

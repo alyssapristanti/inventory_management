@@ -8,10 +8,10 @@ from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 from main.forms import ProductForm
-from main.models import Item
-
+from main.models import CATEGORY_CHOICES, Item
 
 
 # Restrict access to the main page only for logged in users
@@ -32,6 +32,7 @@ def show_main(request):
         'products': all_products,
         'item_count': len(all_products),
         'last_login': request.COOKIES['last_login'],
+        'CATEGORY_CHOICES': CATEGORY_CHOICES,
     }
 
     return render(request, "inventory_main.html", context)
@@ -118,3 +119,24 @@ def delete_product(request, product_id):
     product = get_object_or_404(Item, pk=product_id)
     product.delete()
     return redirect('main:show_main')
+
+def get_product_json(request):
+    product_item = Item.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', product_item))
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        description = request.POST.get("description")
+        category = request.POST.get("category")
+        user = request.user
+
+        new_product = Item(name=name, amount=amount, description=description, category=category, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+

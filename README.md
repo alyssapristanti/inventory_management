@@ -428,7 +428,7 @@ https://inventory-management.adaptable.app
     >> <'meta'>
         Digunakan untuk menyisipkan metadata ke dalam dokumen HTML. Metadata ini bisa berisi informasi tentang karakter encoding, deskripsi halaman, kata kunci, dan lain-lain. Biasanya diletakkan dalam bagian <head> dari halaman.
 
-    >> <'table'>
+    >> <'table's>
         Digunakan untuk membuat tabel dalam HTML. Tabel ini terdiri atas baris (<tr>), sel (<td> untuk sel data, <th> untuk sel kepala), dan kolom.
 
 3. **Jelaskan perbedaan antara margin dan padding**
@@ -446,6 +446,7 @@ https://inventory-management.adaptable.app
 
 5. **Implementasi checklist**
     >> Kustomisasi halaman login, register, dan tambah inventori semenarik mungkin
+
         - Tampilan login
 
             Untuk tampilan login saya membingkai beberapa konten dengan menggunakan container. Kemudian saya menggunakan kelas d-flex, justify-content-center, dan align-items-center yang semuanya merupakan kelas Bootstrap untuk memusatkan konten login secara vertikal dan horisontal dalam container. Selain itu, saya juga menggunakan file login_register.css diluar file login untuk menambahkan beberapa styling diluar dari styling default dari Bootstrap
@@ -464,5 +465,104 @@ https://inventory-management.adaptable.app
             
             Untuk tampilan daftar inventori saya menampilkan daftar produk yang dalam format grid. Kemudian dari setiap produk tersebut saya tampilkan dalam bentuk card dengan menambahkan beberapa styling. Selain itu, saya juga menggunakan file inventory_main.css diluar file invetory_main.html untuk menambahkan beberapa styling diluar dari styling default dari Bootstrap.
 
+# Tugas 6
+# Jawaban Pertanyaan
+1. **Perbedaan antara asynchronus programming dengan synchronus programming**
+    >> Asynchronous Programming
+        Asynchronous programming adalah sebuah arsitektur non-blocking, yang berarti tidak akan menghentikan eksekusi sebuah program saat satu atau lebih operasi lain sedang berlangsung. Dalam asynchronous programming, beberapa operasi dapat berjalan secara bersamaan tanpa harus menunggu task lainnya diselesaikan terlebih dahulu. Ini sangat berguna dalam kasus seperti pemanggilan API atau operasi I/O yang memakan waktu, karena memungkinkan aplikasi untuk tetap responsif. Salah satu contoh pemrograman aplikasi yang menggunakan asynchronous programming adalah dengan pengembangan aplikasi low-code. Beberapa pengembang dapat bekerja pada proyek secara bersamaan di platform low-code, yang membantu mempercepat proses pembuatan aplikasi.
 
+    >> Synchronous Programming
+        Synchronous programming adalah sebuah arsitektur blocking yang berguna untuk pemorgraman dengan sistem reaktif. Sebagai model single-thread, synchronous programming memiliki aturan untuk mengeksekusi operasi secara satu per satu. Saat satu operasi sedang dilakukan, instruksi operasi lainnya diblokir. Penyelesaian tugas pertama akan memicu tugas berikutnya, dan seterusnya. Ini membuat eksekusi kode lebih mudah untuk dipahami dan dikelola, tetapi dapat menyebabkan aplikasi terblokir atau "hang" saat menunggu operasi yang memakan waktu lama untuk selesai.
+2. **Paradigma even-driven programming dalam penerapan JavaScript dan AJAX**
+    Event-driven programming adalah paradigma di mana alur eksekusi kode ditentukan oleh event atau pesan yang diterima dari sistem eksternal atau user. Dalam konteks JavaScript dan AJAX, hal ini berarti kode dapat merespons event seperti klik mouse, input keyboard, atau respons dari server. Event-driven programming adalah bagian penting dalam pemrograman dengan JavaScript dan AJAX karena memungkinkan aplikasi web untuk lebih interaktif dan responsif. Dengan mengatur event listeners dan callbacks, pengembang JavaScript dapat membuat halaman web yang lebih interaktif dan responsif terhadap masukan pengguna. Contoh dalam implementasi event-driven programming adalah sebuah tombol di halaman web yang, ketika diklik, memicu AJAX request untuk mengambil data dari server dan kemudian menampilkan data tersebut pada halaman web tanpa perlu memuat ulang halaman.
+3. **Penerapan Asynchronous Programming pada AJAX**
+    Asynchronous Programming pada AJAX memungkinkan JavaScript mengirim permintaan tetapi tidak menunggu respons. JavaScript dapat terus mengeksekusi tugas lain sehingga halaman tetap responsif sementara respons diproses. Permintaan asinkron dapat digunakan dengan mengatur parameter async dalam metode open. Sintaks yang digunakan untuk melakukan hal tersebut adalah
 
+    - request.open(method,url,parameter async);
+
+    Ini memungkinkan pengambilan data dari server dan pembaruan konten halaman web tanpa perlu melakukan refresh halaman. Menggunakan teknik ini, permintaan ke server dapat dikirim, dan kode lain dapat terus berjalan sementara menunggu respons dari server.
+4. **Perbandingan antara Fetch API dan jQuery dalam AJAX**
+    >> Fetch API 
+        Fetch API adalah teknologi native yang hadir di sebagian besar browser modern dan memungkinkan pembuatan request HTTP yang asinkron. Fetch API memberikan kontrol lebih dan lebih fleksibel dibandingkan dengan jQuery.
+
+    >> jQuery
+        jQuery adalah library yang lebih tua dan lebih berat yang mencakup berbagai fungsi, termasuk AJAX. jQuery mungkin lebih mudah untuk diimplementasikan oleh pemula, tetapi kurang efisien dan modern dibandingkan dengan Fetch API.
+    
+    Menurut saya, Fetch API lebih baik karena lebih ringan, modern, dan fleksibel, serta tidak memerlukan dependensi eksternal seperti jQuery. Namun, pilihan antara keduanya juga harus dipertimbangkan berdasarkan kebutuhan proyek dan kompatibilitas browser.
+
+5. **Implementasi Checklist**
+    **AJAX GET**
+
+    - Mengganti kode card menjadi <div class="row" id="product_cards"></div> pada file inventory_main.html
+
+    - Menambahkan function pada inventory_main.html
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+    async function refreshProducts() {
+        document.getElementById("product_cards").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = ""
+        products.forEach((item) => {
+            htmlString += `
+            <div class="col-md-4 mb-4 card-product glass-card">
+                <div class="card text-bg-light mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.fields.name}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${item.fields.category}</h6>
+                        <p class="card-text">${item.fields.description}</p>
+                        <p><strong>Date Added:</strong>${item.fields.date_added}</p>
+                        <p><strong>Amount:</strong> ${item.fields.amount}</p>
+                        
+                        <a href="/add_stock/${item.pk}/" class="btn btn-primary btn-sm">Add Stock</a>
+                        <a href="/reduce_stock/${item.pk}/" class="btn btn-warning btn-sm">Reduce Stock</a>
+                        <a href="/delete_product/${item.pk}/" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete Item</a>
+                    </div>
+                </div>
+            </div>`
+        })
+        document.getElementById("product_cards").innerHTML = htmlString
+    }
+
+    refreshProducts()
+
+    - Menambahkan kode pada views.py
+    def get_product_json(request):
+        product_item = Item.objects.filter(user=request.user)
+        return HttpResponse(serializers.serialize('json', product_item))
+
+    **AJAX POST**
+
+    - Menambahkan function pada inventory_main.html
+     async function addProduct() {
+        await fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        })
+        refreshProducts()
+
+        document.getElementById("form").reset()
+        return false
+    }
+    document.getElementById("button_add").onclick = addProduct
+
+    - Menambahkan kode pada views.py
+    def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        description = request.POST.get("description")
+        category = request.POST.get("category")
+        user = request.user
+
+        new_product = Item(name=name, amount=amount, description=description, category=category, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+
+    **Melakukan perintah collectstatic.**
+    
+    - Menambahkan pada settings.py
+        STATIC_ROOT = os.path.join(BASE_DIR, 'static')

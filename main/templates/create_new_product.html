@@ -12,7 +12,7 @@
     <div class="create_new_product">
         <div class="card">
             <div class="card-body">
-                <form method="POST" class="needs-validation" novalidate>
+                <form id="productForm" method="POST" class="needs-validation" novalidate>
                     {% csrf_token %}
 
                     {% for field in form %}

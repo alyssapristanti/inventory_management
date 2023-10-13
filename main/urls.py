@@ -1,9 +1,9 @@
 from django.urls import path
 
-from main.views import (add_stock, create_new_product, delete_product,
-                        login_user, logout_user, reduce_stock,
-                        register_account, show_json, show_json_by_id,
-                        show_main, show_xml, show_xml_by_id)
+from main.views import (add_product_ajax, add_stock, create_new_product,
+                        delete_product, get_product_json, login_user,
+                        logout_user, reduce_stock, register_account, show_json,
+                        show_json_by_id, show_main, show_xml, show_xml_by_id)
 
 app_name = 'main'
 
@@ -20,4 +20,6 @@ urlpatterns = [
     path('add_stock/<int:product_id>/', add_stock, name='add_stock'),
     path('reduce_stock/<int:product_id>/', reduce_stock, name='reduce_stock'),
     path('delete_product/<int:product_id>/', delete_product, name='delete_product'),
+    path('get-product/', get_product_json, name='get_product_json'),
+    path('create-product-ajax/', add_product_ajax, name='add_product_ajax')
 ]
