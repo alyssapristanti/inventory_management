@@ -22,7 +22,7 @@ def show_main(request):
 
     for product in all_products:
         if(product.amount == 0):
-            delete_product(request, product.id);
+            delete_product(request, product.id),
             return redirect('main:show_main')
  
     context = {
